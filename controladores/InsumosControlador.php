@@ -7,7 +7,7 @@ require_once PATH . 'modelos/modeloLibro/LibroVO.php';
 require_once PATH . 'modelos/modeloCategoriaLibro/CategoriaLibroDAO.php';
 require_once PATH . 'modelos/modeloCategoriaLibro/CategoriaLibroVO.php';
 
-class LibrosControlador {
+class InsumosControlador {
 
     private $datos = array();
 
@@ -15,10 +15,10 @@ class LibrosControlador {
         $this->datos = $datos;
     }
 
-    public function librosControlador() {
+    public function InsumosControlador() {
 
         switch ($this->datos["ruta"]) {
-            case "listarLibros":
+            case "listarInsumos":
 
                 if (isset($this->datos['pag']) && (int) $this->datos['pag'] > 0) {
                     $pagInicio = $this->datos['pag'];
@@ -30,21 +30,21 @@ class LibrosControlador {
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
                 $consultarLibro = new LibroVO();
 
-                $gestarLibros = new LibroDAO($usuarioBd, BASE, SERVIDOR);
-                $resultadoConsultaPaginada = $gestarLibros->consultaPaginada($consultarLibro, $limit, $pagInicio);
+                $gestarInsumos = new LibroDAO($usuarioBd, BASE, SERVIDOR);
+                $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarLibro, $limit, $pagInicio);
                 $totalRegistros = $resultadoConsultaPaginada[0];
-                $listaDeLibros = $resultadoConsultaPaginada[1];
-                $paginacionVinculos = $gestarLibros->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
+                $listaDeInsumos = $resultadoConsultaPaginada[1];
+                $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);
 
                 session_start();
-                $_SESSION['listaDeLibros'] = $listaDeLibros;
+                $_SESSION['listaDeInsumos'] = $listaDeInsumos;
                 $_SESSION['paginacionVinculos'] = $paginacionVinculos;
                 $_SESSION['totalRegistros'] = $totalRegistros;
 
 
                 $usuarioBd = null;
-                $gestarLibros = null;
-                header("location: ../principal.php?contenido=vistas/vistasLibros/listarRegistrosLibros.php");
+                $gestarInsumos = null;
+                header("location: ../principal.php?contenido=vistas/vistasInsumos/listarRegistrosInsumos.php");
                 break;
 
             default:
@@ -53,4 +53,3 @@ class LibrosControlador {
     }
 
 }
-pedaszo de mierda

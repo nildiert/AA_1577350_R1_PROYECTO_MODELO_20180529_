@@ -7,7 +7,8 @@ $usuarioBd=new UsuarioBD("root", "");
 
 $pruebaLibro =new LibroDAO($usuarioBd, BASE, SERVIDOR);
 
-$listado=$pruebaLibro->seleccionarTodos();
+//$listado=$pruebaLibro->seleccionarTodos();
+$listado=$pruebaLibro->consultaPaginada();
 
 echo "<pre>";
 print_r($listado);
