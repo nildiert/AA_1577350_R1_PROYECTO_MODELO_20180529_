@@ -16,11 +16,12 @@
 //            unset($_SESSION['mensaje']);
 //        }
         ?>        
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--<link rel="stylesheet" type="text/css" href="xxxx.css">-->
         <style type="text/css">
-            header {
+           header {
                 width: 100%;
                 height: 60px;
                 background-color: #ff7f50;
@@ -48,6 +49,9 @@
                 z-index: 999;
                 border: 1px solid #383838;
                 color: #FFFFFF !important;
+            }
+            aside li{
+                color:#ffffff;
             }
             footer {
                 height: 42px;
@@ -82,7 +86,7 @@
                     </ul>
                 </div>
             </header>
-            <aside id="left">
+            <aside id="left" class="bg-secondary" >
                 <img src="imagenes/logo.png">
                 <a href="principal.php">Tablero de Funciones</a>
                 <!-- start nav -->
@@ -96,6 +100,13 @@
                                 <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarLibro.php">Agregar Libros</a></li>
                             </ul>
                         </li>
+                        <li><a href="#">Gestión de TablaX1</a></li>
+                        <li><a href="#">Gestión de Insumos</a>
+                            <ul>
+                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarInsumos.php">Agregar Insumos</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#">Gestión de TablaX3</a></li>
                         <li><a href="#">Gestión de TablaX4</a></li>
                         <li><a href="#">Gestión de TablaX5</a></li>
@@ -104,7 +115,7 @@
                 </nav>
                 <!-- end nav -->                
             </aside>
-            <main style="background-color: #dadada;">
+            <main style="background-color: #00000;">
                 <?php
                 if (isset($_GET['contenido'])) {
                     include($_GET['contenido']);
