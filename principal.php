@@ -50,7 +50,7 @@
                 border: 1px solid #383838;
                 color: #FFFFFF !important;
             }
-            aside li{
+            aside a{
                 color:#ffffff;
             }
             footer {
@@ -86,7 +86,7 @@
                     </ul>
                 </div>
             </header>
-            <aside id="left" class="bg-secondary" >
+            <aside id="left" class="bg-primary text-light" >
                 <img src="imagenes/logo.png">
                 <a href="principal.php">Tablero de Funciones</a>
                 <!-- start nav -->
@@ -103,7 +103,7 @@
                         <li><a href="#">Gestión de TablaX1</a></li>
                         <li><a href="#">Gestión de Insumos</a>
                             <ul>
-                                <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
+                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarInsumos">Listado de Insumos</a></li>
                                 <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarInsumos.php">Agregar Insumos</a></li>
                             </ul>
                         </li>

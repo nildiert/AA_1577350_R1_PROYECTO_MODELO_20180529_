@@ -49,9 +49,11 @@ class LibroDAO extends ConBdMySql /* implements InterfaceCRUD */ {
     	if (isset($_POST['buscar']))
         	$_POST['buscar'] = trim($_POST['buscar']);
 
-    	$planConsulta = "select SQL_CALC_FOUND_ROWS l.isbn,l.titulo,l.autor,l.precio,cl.catLibId,cl.catLibNombre from libros l ";
+    	$planConsulta = "select SQL_CALC_FOUND_ROWS l.isbn,l.titulo,l.autor,l.precio,cl.catLibId,cl.catLibNombre from libros l  ";
     	$planConsulta.= " join categorialibro cl ";
-    	$planConsulta.= " ON  l.categoriaLibro_catLibId=cl.catLibId ";
+		$planConsulta.= " ON  l.categoriaLibro_catLibId=cl.catLibId ";
+		
+		echo $planConsulta;
 
     	if (!empty($_POST['isbn'])) {
         	$planConsulta.=" where l.isbn='" . $_POST['isbn'] . "'";
