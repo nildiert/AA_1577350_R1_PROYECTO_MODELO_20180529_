@@ -4,8 +4,8 @@ include_once './../modelos/ConstantesConexion.php';
 require_once PATH . 'modelos/UsuarioBD.php';
 require_once PATH . 'modelos/modeloInsumos/InsumosDAO.php';
 require_once PATH . 'modelos/modeloInsumos/InsumosVO.php';
-require_once PATH . 'modelos/modeloCategoriaInsumos/CategoriaInsumosDAO.php';
-require_once PATH . 'modelos/modeloCategoriaInsumos/CategoriaInsumosVO.php';
+
+
 
 class InsumosControlador {
 

@@ -1,10 +1,12 @@
 <?php
-
+/**/
 /* * ********************************************** */
 /* * ***COMIENZO DE PROGRAMACIÓN EN BACKEND******** */
 /* * ********************************************** */
 include_once './../modelos/ConstantesConexion.php';
 include_once PATH . 'controladores/LibrosControlador.php';
+include_once PATH . 'controladores/InsumosControlador.php';
+
 /* * ********************************************** */
 
 $datos = array();
@@ -26,6 +28,10 @@ switch ($datos['ruta']) {
     case "listarLibros":
         $usuario_sControlador = new LibrosControlador($datos);
         $usuario_sControlador->librosControlador();
+        break;
+    case "listarInsumos":
+        $usuario_sControlador = new InsumosControlador($datos);
+        $usuario_sControlador->InsumosControlador();
         break;
 }
 ?>

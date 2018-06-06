@@ -2,7 +2,8 @@
 //echo "<pre>";
 //print_r($_SESSION);
 //echo "</pre>";exit();
-session_start();
+//session_start();
+
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
