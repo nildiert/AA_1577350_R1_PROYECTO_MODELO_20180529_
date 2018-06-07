@@ -28,10 +28,10 @@ class InsumosControlador {
                 $limit = 5;
 
                 $usuarioBd = new UsuarioBd(USUARIO_BD, CONTRASENIA_BD);
-                $consultarLibro = new LibroVO();
+                $consultarInsumos = new InsumosVO();
 
-                $gestarInsumos = new LibroDAO($usuarioBd, BASE, SERVIDOR);
-                $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarLibro, $limit, $pagInicio);
+                $gestarInsumos = new InsumosDAO($usuarioBd, BASE, SERVIDOR);
+                $resultadoConsultaPaginada = $gestarInsumos->consultaPaginada($consultarInsumos, $limit, $pagInicio);
                 $totalRegistros = $resultadoConsultaPaginada[0];
                 $listaDeInsumos = $resultadoConsultaPaginada[1];
                 $paginacionVinculos = $gestarInsumos->enlacesPaginacion($totalRegistros, $limit, $pagInicio);

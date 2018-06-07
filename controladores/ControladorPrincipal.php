@@ -26,12 +26,12 @@ if (!empty($_GET) && isset($_GET["ruta"])) {
 switch ($datos['ruta']) {
 
     case "listarLibros":
-        $usuario_sControlador = new LibrosControlador($datos);
-        $usuario_sControlador->librosControlador();
+        $librosControlador = new LibrosControlador($datos);
+        $librosControlador->librosControlador();
         break;
     case "listarInsumos":
-        $usuario_sControlador = new InsumosControlador($datos);
-        $usuario_sControlador->InsumosControlador();
+        $InsumosControlador = new InsumosControlador($datos);
+        $InsumosControlador->InsumosControlador();
         break;
 }
 ?>

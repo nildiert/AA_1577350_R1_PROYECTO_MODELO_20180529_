@@ -16,7 +16,7 @@
 //            unset($_SESSION['mensaje']);
 //        }
         ?>        
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+        
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <!--<link rel="stylesheet" type="text/css" href="xxxx.css">-->
@@ -35,7 +35,7 @@
             }
             body {
                 margin: 0;
-                background-color: #ffffff;
+                background-color: #eeeeee;
                 z-index: 0;
                 height: auto;
                 width: 100%;
@@ -51,7 +51,7 @@
                 color: #FFFFFF !important;
             }
             aside a{
-                color:#ffffff;
+                color:#000000;
             }
             footer {
                 height: 42px;

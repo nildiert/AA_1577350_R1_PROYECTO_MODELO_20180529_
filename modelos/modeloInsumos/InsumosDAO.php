@@ -1,7 +1,7 @@
 <?php
-
 include_once '../modelos/ConstantesConexion.php';
 include_once PATH . 'modelos/ConBdMySql.php';
+
 include_once PATH . 'modelos/UsuarioBD.php';
 // include_once PATH . 'modelos/modeloPersona/PersonaVO.php';
 include_once PATH . 'modelos/InterfaceCRUD.php';
@@ -14,29 +14,23 @@ class InsumosDAO extends ConBdMySql /* implements InterfaceCRUD */ {
         parent::__construct($usuarioBd, $base, $servidor);
     }
 
-    public function seleccionarTodos() {
+public function seleccionarTodos() {
+	$planConsulta .="SELECT i.InsCodigo,i.InsNombre,i.InsPrecio ,i.InsEstado, pi.ProvinsPrecio PrecioProveedor ,  ";
+	$planConsulta .="p.ProvCodigo, p.ProvNombre, ic.Ordencompra_OrdComId, oc.OrdComFecha, oc.OrdComEstado, po.Productos_ProCodigo, ";
+	$planConsulta .="pt.ProNombre,pt.ProPresentacion, pt.ProDescripcion, op.OrdPId,op.OrdPFecha,op.OrdPAsignada,op.OrdPCant,op.OrdPObservaciones, ";
+	$planConsulta .="c.Cliid,c.CliNombre,c.CliTelefono,c.CliDireccion ";
+	$planConsulta .="FROM ((((((((insumos i left join provins pi on i.InsCodigo=pi.Insumos_InsCodigo) ";
+	$planConsulta .="left join proveedor p on p.ProvCodigo=pi.Proveedor_ProvCodigo) ";
+	$planConsulta .="left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo) ";
+	$planConsulta .="left join ordencompra oc on oc.OrdComId=ic.Ordencompra_OrdComId) ";
+	$planConsulta .="left join proins po on po.Insumos_InsCodigo=i.InsCodigo) ";
+	$planConsulta .="left join productos pt on pt.ProCodigo=po.Productos_ProCodigo) ";
+	$planConsulta .="left join ordenproduccion op on op.Productos_ProCodigo=pt.ProCodigo) ";
+	$planConsulta .="left join cliente c on c.Cliid=op.Cliente_Cliid) ";
 
-
-		$planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsPrecio as UltimoPrecio,pi.ProvinsPrecio PrecioProveedor , ";
-$planConsulta .= "p.ProvCodigo, p.ProvNombre, ic.Ordencompra_OrdComId, oc.OrdComFecha, oc.OrdComEstado, po.Productos_ProCodigo,";
-$planConsulta .= "pt.ProNombre,pt.ProPresentacion, pt.ProDescripcion, op.OrdPId,op.OrdPFecha,op.OrdPAsignada,op.OrdPCant,op.OrdPObservaciones,";
-$planConsulta .= "c.Cliid,c.CliNombre,c.CliTelefono,c.CliDireccion";
-$planConsulta .= "FROM ((((((((insumos i left join provins pi on i.InsCodigo=pi.Insumos_InsCodigo)";
-$planConsulta .= "left join proveedor p on p.ProvCodigo=pi.Proveedor_ProvCodigo)";
-$planConsulta .= "left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo)";
-$planConsulta .= "left join ordencompra oc on oc.OrdComId=ic.Ordencompra_OrdComId)";
-$planConsulta .= "left join proins po on po.Insumos_InsCodigo=i.InsCodigo)";
-$planConsulta .= "left join productos pt on pt.ProCodigo=po.Productos_ProCodigo)";
-$planConsulta .= "left join ordenproduccion op on op.Productos_ProCodigo=pt.ProCodigo)";
-$planConsulta .= "left join cliente c on c.Cliid=op.Cliente_Cliid)";
-
-$planConsulta .= "where op.OrdPId=10"; 
-
-
-
-      $registrosInsumos = $this->conexion->prepare($planConsulta); //Se envia la consulta
-      $registrosInsumos->execute(); //Ejecución de la consulta
-      $listadoRegistrosInsumos = array();
+	$registrosInsumos = $this->conexion->prepare($planConsulta); //Se envia la consulta
+	$registrosInsumos->execute(); //Ejecución de la consulta
+	$listadoRegistrosInsumos = array();
 
       while($registro = $registrosInsumos->fetch(PDO::FETCH_OBJ)) {
           $listadoRegistrosInsumos[] = $registro;
@@ -45,10 +39,6 @@ $planConsulta .= "where op.OrdPId=10";
               $this->cierreBd();
               return $listadoRegistrosInsumos;
           }
-
-
-
-
 
     public function consultaPaginada(InsumosVO $consultarInsumos = NULL, $limit = NULL, $pagInicio = NULL) {
         $parametrosPaginacion = $this->solicitudPaginacion();
@@ -62,22 +52,18 @@ $planConsulta .= "where op.OrdPId=10";
         	$_POST['buscar'] = trim($_POST['buscar']);
 
 			
-            $planConsulta .= "SELECT i.InsCodigo,i.InsNombre,i.InsPrecio as UltimoPrecio,pi.ProvinsPrecio PrecioProveedor , ";
-            $planConsulta .= "p.ProvCodigo, p.ProvNombre, ic.Ordencompra_OrdComId, oc.OrdComFecha, oc.OrdComEstado, po.Productos_ProCodigo,";
-            $planConsulta .= "pt.ProNombre,pt.ProPresentacion, pt.ProDescripcion, op.OrdPId,op.OrdPFecha,op.OrdPAsignada,op.OrdPCant,op.OrdPObservaciones,";
-            $planConsulta .= "c.Cliid,c.CliNombre,c.CliTelefono,c.CliDireccion";
-            $planConsulta .= "FROM ((((((((insumos i left join provins pi on i.InsCodigo=pi.Insumos_InsCodigo)";
-            $planConsulta .= "left join proveedor p on p.ProvCodigo=pi.Proveedor_ProvCodigo)";
-            $planConsulta .= "left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo)";
-            $planConsulta .= "left join ordencompra oc on oc.OrdComId=ic.Ordencompra_OrdComId)";
-            $planConsulta .= "left join proins po on po.Insumos_InsCodigo=i.InsCodigo)";
-            $planConsulta .= "left join productos pt on pt.ProCodigo=po.Productos_ProCodigo)";
-            $planConsulta .= "left join ordenproduccion op on op.Productos_ProCodigo=pt.ProCodigo)";
-			$planConsulta .= "left join cliente c on c.Cliid=op.Cliente_Cliid)";
-			
-			$planConsulta = "select * from insumos";
-                    
-		echo $planConsulta."<br>";
+		$planConsulta .="SELECT i.InsCodigo,i.InsNombre,i.InsPrecio ,i.InsEstado, pi.ProvinsPrecio PrecioProveedor ,  ";
+		$planConsulta .="p.ProvCodigo, p.ProvNombre, ic.Ordencompra_OrdComId, oc.OrdComFecha, oc.OrdComEstado, po.Productos_ProCodigo, ";
+		$planConsulta .="pt.ProNombre,pt.ProPresentacion, pt.ProDescripcion, op.OrdPId,op.OrdPFecha,op.OrdPAsignada,op.OrdPCant,op.OrdPObservaciones, ";
+		$planConsulta .="c.Cliid,c.CliNombre,c.CliTelefono,c.CliDireccion ";
+		$planConsulta .="FROM ((((((((insumos i left join provins pi on i.InsCodigo=pi.Insumos_InsCodigo) ";
+		$planConsulta .="left join proveedor p on p.ProvCodigo=pi.Proveedor_ProvCodigo) ";
+		$planConsulta .="left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo) ";
+		$planConsulta .="left join ordencompra oc on oc.OrdComId=ic.Ordencompra_OrdComId) ";
+		$planConsulta .="left join proins po on po.Insumos_InsCodigo=i.InsCodigo) ";
+		$planConsulta .="left join productos pt on pt.ProCodigo=po.Productos_ProCodigo) ";
+		$planConsulta .="left join ordenproduccion op on op.Productos_ProCodigo=pt.ProCodigo) ";
+		$planConsulta .="left join cliente c on c.Cliid=op.Cliente_Cliid) ";
 
     	if (!empty($_POST['InsCodigo'])) {
         	$planConsulta.=" where i.InsCodigo='" . $_POST['InsCodigo'] . "'";
@@ -95,18 +81,13 @@ $planConsulta .= "where op.OrdPId=10";
             	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsPrecio = " . $_POST['InsPrecio'];
             	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
 			}
+        	if (!empty($_POST['InsEstado'])) {
+            	$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsEstado = " . $_POST['InsEstado'];
+            	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
+			}
 			
-            /*nildiertsita*/
-        	if (!empty($_POST['catLibId'])) {
-            	$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " cl.catLibId like upper('%" . $_POST['catLibId'] . "%')";
-            	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-        	}
-        	if (!empty($_POST['catLibNombre'])) {
-            	$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " cl.catLibNombre like upper('%" . $_POST['catLibNombre'] . "%')";
-            	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-        	}
+   
 		}
 		
     	if (!empty($_POST['buscar'])) {
@@ -116,10 +97,9 @@ $planConsulta .= "where op.OrdPId=10";
         	$planConsulta.=$condicionBuscar;
         	$planConsulta.="( InsCodigo like '%" . $_POST['buscar'] . "%'";
         	$planConsulta.=" or InsNombre like '%" . $_POST['buscar'] . "%'";
-        	$planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
-        	$planConsulta.=" or precio like '%" . $_POST['buscar'] . "%'";
-        	$planConsulta.=" or catLibId like '%" . $_POST['buscar'] . "%'";
-        	$planConsulta.=" or catLibNombre like '%" . $_POST['buscar'] . "%'";
+			$planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
+			$planConsulta.=" or InsEstado like '%" . $_POST['buscar'] . "%'";
+        	
         	$planConsulta.=" ) ";
     	};
 		
@@ -128,31 +108,71 @@ $planConsulta .= "where op.OrdPId=10";
     	$listar = $this->conexion->prepare($planConsulta);
     	$listar->execute();
 
-    	$listadoLibros = array();
+    	$listadoInsumos = array();
 
     	while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
-        	$listadoLibros[] = $registro;
+        	$listadoInsumos[] = $registro;
     	}
 
-    	$listar = $this->conexion->prepare("SELECT FOUND_ROWS() as total;");
-    	$listar->execute();
-    	while ($registro = $listar->fetch(PDO::FETCH_OBJ)) {
+   
+		
+		$listar2 = $this->conexion->prepare("SELECT FOUND_ROWS() as total;");
+    	$listar2->execute();
+    	while ($registro = $listar2->fetch(PDO::FETCH_OBJ)) {
         	$totalRegistros = $registro->total;
-    	}
-        $this->cantidadTotalRegistros = $totalRegistros;
+		}
+
+        $this->cantidadTotalRegistros = $listadoInsumos;
         
    	
-     	return array($totalRegistros, $listadoLibros);
+     	return array($totalRegistros, $listadoInsumos);
         
     }
 
     public function solicitudPaginacion($limit = 5) {
+	if (!isset($_GET['pag']) || $_GET['pag'] < 1) {
+        	$_GET['pag'] = 1;
+    	}
 
+    	$pag = (int) $_GET['pag'];
+
+    	if ($pag < 1) {
+        	$pag = 1;
+    	};
+
+    	$offset = ($pag - 1) * $limit;
+
+    	return array($offset, $limit);
 
     }
 
     public function enlacesPaginacion($totalRegistros = NULL, $limit = 5, $offset = 0, $totalEnlacesPaginacion = 4) {
+		$totalPag = ceil($totalRegistros / $limit);
 
+    	$anterior = $_GET['pag'] - $totalEnlacesPaginacion;
+    	$siguiente = $_GET['pag'] + $limit;
+
+    	$dbs = array();
+    	$conteoEnlaces = 0;
+    	for ($i = $_GET['pag']; $i < ($_GET['pag'] + $limit) && $i < $totalPag && $conteoEnlaces < $totalEnlacesPaginacion; $i++) {
+
+        	$dbs[] = "<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=$i'>$i</a>";
+        	$conteoEnlaces++;
+        	$siguiente = $i;
+    	}
+
+    	$mostrar = "<center><a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=0'>..::PAGINAS INICIALES::..</a><br>";
+    	$mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=Insumos&pag=" . (($anterior)) . "'>..::BLOQUE ANTERIOR::..</a>";
+
+    	$mostrar.= implode("-", $dbs);
+
+    	if ($_GET['pag'] < $totalPag) {
+        	$mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($siguiente + 1) . "'>..::BLOQUE SIGUIENTE::..</a><br>";
+        	$mostrar.="<a href='controladores/ControladorPrincipal.php?ruta=listarInsumos&pag=" . ($totalPag - $totalEnlacesPaginacion) . "'>..::BLOQUE FINAL::..</a><br></center>";
+    	}
+
+
+    	return $mostrar;
 
     }
 
