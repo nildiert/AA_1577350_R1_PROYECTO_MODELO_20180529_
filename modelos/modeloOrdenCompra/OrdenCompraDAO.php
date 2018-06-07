@@ -43,7 +43,7 @@ public function seleccionarTodos() {
         	$_POST['buscar'] = trim($_POST['buscar']);
 
 			$planConsulta ="SELECT i.InsCodigo,i.InsNombre,i.InsPrecio ,i.InsEstado, i.InsUnidadMedida, ic.Insumos_InsCodigo, ic.Ordencompra_OrdComId ";
-			$planConsulta .="FROM (insumos i left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo)";
+			$planConsulta .="FROM (insumos i left join insordcom ic on ic.Insumos_InsCodigo=i.InsCodigo) ";
 			
 
 			
