@@ -211,15 +211,16 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     echo "</td>\n";
                     echo "</tr>\n";
                 }
+                //
                 ?>                    
                 <tr><td><input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
                     <td><input type="reset" value="limpiar" onclick="
-                            javascript:document.forformFiltroInsOoInsOrdCom.InsCodigo.value = '';
-                            javascript:document.forformFiltroInsOoInsOrdCom.InsNombre.value = '';
-                            javascript:document.forformFiltroInsOoInsOrdCom.InsPrecio.value = '';
-                            javascript:document.forformFiltroInsOoInsOrdCom.InsEstado.value = '';
-                            javascript:document.forformFiltroInsOoInsOrdCom.InsUnidadMedida.value = '';
-                            javascript:document.fo><oInsOrdCom.submit();
+                            javascript:document.formFiltroInsOrdCom.InsCodigo.value = '';
+                            javascript:document.formFiltroInsOrdCom.InsNombre.value = '';
+                            javascript:document.formFiltroInsOrdCom.InsPrecio.value = '';
+                            javascript:document.formFiltroInsOrdCom.InsEstado.value = '';
+                            javascript:document.formFiltroInsOrdCom.InsUnidadMedida.value = '';
+                            javascript:document.formFiltroInsOrdCom.submit();
                                "/></td><td></td></tr> 
             </table>
         </form>
@@ -230,16 +231,16 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <div style="width: 800">
         <span class="izquierdo">
             <!--NUEVO BOTÓN PARA BUSCAR*************************-->
-            <form name="formBuscanCom" action="controladores/ControladorPrincipal.php" method="POST">
-                <input type="hidden" name="ruta" value="listaTérmOrdCom"/>
+            <form name="formBuscarInsOrdCom" action="controladores/ControladorPrincipal.php" method="POST">
+                <input type="hidden" name="ruta" value="listarInsOrdCom"/>
                 <input type="text" name="buscar" placeholder="Término a Buscar" value="<?php
                 if (isset($_SESSION['buscarF'])) {
                     echo $_SESSION['buscarF'];
                 }
                 ?>">
                 <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'">&nbsp;&nbsp;||&nbsp;&nbsp;
-                <input type="button"  value="Limpiar Búsquedsubmitick="javascript:document.formBuscarInsOrdCom.buscar.value = '';
-               </javascript:document.formBuscarInsOrdCom.submit();">
+                <input type="button"  value="Limpiar Búsqueda" onclick="javascript:document.formBuscarInsOrdCom.buscar.value = '';
+                        javascript:document.formBuscarInsOrdCom.submit();">
             </form>
         </span>
     </div>        
@@ -249,12 +250,12 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <span class="izquierdo">
         <!--NUEVO BOTÓN PARA DARLE FUNCIONALIDAD*************************-->
 
-  InsOrdC    <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsOrdCom/vistaInsertarInsOrdCom.php'" value="Nuevo InsOrdCom">
+        <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsOrdCom/vistaInsertarInsOrdCom.php'" value="Nuevo InsOrdCom">
 
     </span>
 </div>
 <br>
-<a name="listaDwidth: eInsOrdCom" id="a"></a>
+<a name="listaDeInsOrdCom" id="a"></a>
 <div style="width: 800">
     <p>Total de Registros: <?php echo $totalRegistros; ?></p>
     <table border=1>
@@ -279,10 +280,10 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
             <td style="width: 100"><?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsNombre); ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsPrecio); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsEstado); ?></td>;
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsUnidadMedida); ?></td>;
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Insumos_InsCodigo); ?></td>;
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Ordencompra_OrdComId); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsEstado); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsUnidadMedida); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Insumos_InsCodigo); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Ordencompra_OrdComId); ?></td>
 
                 
                      <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?>" >Actualizar</a></td>
