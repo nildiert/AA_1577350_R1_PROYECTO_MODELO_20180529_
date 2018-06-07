@@ -8,8 +8,8 @@ if (isset($_SESSION['mensaje'])) {
     echo "<script languaje='javascript'>alert('$mensaje')</script>";
     unset($_SESSION['mensaje']);
 }
-if (isset($_SESSION['listaDeInsumos'])) {
-    $listaDeInsumos = $_SESSION['listaDeInsumos'];
+if (isset($_SESSION['listaDeInsOrdCom'])) {
+$listaDeInsOrdCom = $_SESSION['listaDeInsOrdCom'];
 }
 if (isset($_SESSION['paginacionVinculos'])) {
     $paginacionVinculos = $_SESSION['paginacionVinculos'];
@@ -33,9 +33,9 @@ if (isset($_POST['InsNombre']))
 if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre']))
     $_POST['InsNombre'] = $_SESSION['InsNombreF'];
 /* * ********************************************* */
-/* * ********Conservar filtro 'InsUnidadMedida' si lo hay************ */
+/* * ********Conservar filtro 'InsInsPrecio' si lo hay************ */
 if (isset($_POST['InsInsPrecio']))
-    $_SESSION['InsInsPrecioF'] = $_POST['InsUnidadMedida'];
+    $_SESSION['InsInsPrecioF'] = $_POST['InsInsPrecio'];
 if (isset($_SESSION['InsInsPrecioF']) && !isset($_POST['InsInsPrecio']))
     $_POST['InsInsPrecio'] = $_SESSION['InsInsPrecioF'];
 /* * ********************************************* */
@@ -50,6 +50,18 @@ if (isset($_POST['InsUnidadMedida']))
     $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
 if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida']))
     $_POST['InsUnidadMedida'] = $_SESSION['InsUnidadMedidaF'];
+/* * ********************************************* */
+/* * ********Conservar filtro 'InsPrecio' si lo hay************ */
+if (isset($_POST['Insumos_InsCodigo']))
+    $_SESSION['Insumos_InsCodigoF'] = $_POST['Insumos_InsCodigo'];
+if (isset($_SESSION['Insumos_InsCodigoF']) && !isset($_POST['Insumos_InsCodigo']))
+    $_POST['Insumos_InsCodigo'] = $_SESSION['Insumos_InsCodigoF'];
+/* * ********************************************* */
+/* * ********Conservar filtro 'InsPrecio' si lo hay************ */
+if (isset($_POST['Ordencompra_OrdComId ']))
+    $_SESSION['Ordencompra_OrdComId F'] = $_POST['Ordencompra_OrdComId '];
+if (isset($_SESSION['Ordencompra_OrdComId F']) && !isset($_POST['Ordencompra_OrdComId ']))
+    $_POST['Ordencompra_OrdComId '] = $_SESSION['Ordencompra_OrdComId F'];
 /* * ********************************************* */
 
 /* * ********Conservar filtro 'buscar' si lo hay************ */
@@ -93,8 +105,8 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 <div class="container-fluid">
     <div class="row">
         <div class="col-lg-12">
-            <h1 class="page-header">Gestión de Insumos.</h1>
-        </div>                        
+            <h1 class="page-header">Gestión de InsOrdCom.</h1>
+        </div>      
         <!-- /.col-lg-12 -->    
     </div>
     <!-- /.row -->
@@ -103,8 +115,8 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 <div>
     <fieldset class="scheduler-border"><legend class="scheduler-border">FILTRO</legend>
 
-        <form name="formFiltroInsumos" action="controladores/ControladorPrincipal.php" method="POST">
-            <input type="hidden" name="ruta" value="listarInsumos"/>
+        <form name="formFiltrnCom" action="controladores/ControladorPrincipal.php" method="POST">
+        <input type="hidden" name="ruta" value="listarInsOrdCom"/>
             <table> 
                 <tr><td>InsCodigo:</td><td><input type="number" name="InsCodigo" onclick="" value="<?php
                         if (isset($registroAInsertar['InsCodigo'])) {
@@ -202,12 +214,12 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                 ?>                    
                 <tr><td><input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
                     <td><input type="reset" value="limpiar" onclick="
-                            javascript:document.formFiltroInsumos.InsCodigo.value = '';
-                            javascript:document.formFiltroInsumos.InsNombre.value = '';
-                            javascript:document.formFiltroInsumos.InsPrecio.value = '';
-                            javascript:document.formFiltroInsumos.InsEstado.value = '';
-                            javascript:document.formFiltroInsumos.InsUnidadMedida.value = '';
-                            javascript:document.formFiltroInsumos.submit();
+                            javascript:document.forformFiltroInsOoInsOrdCom.InsCodigo.value = '';
+                            javascript:document.forformFiltroInsOoInsOrdCom.InsNombre.value = '';
+                            javascript:document.forformFiltroInsOoInsOrdCom.InsPrecio.value = '';
+                            javascript:document.forformFiltroInsOoInsOrdCom.InsEstado.value = '';
+                            javascript:document.forformFiltroInsOoInsOrdCom.InsUnidadMedida.value = '';
+                            javascript:document.fo><oInsOrdCom.submit();
                                "/></td><td></td></tr> 
             </table>
         </form>
@@ -218,16 +230,16 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <div style="width: 800">
         <span class="izquierdo">
             <!--NUEVO BOTÓN PARA BUSCAR*************************-->
-            <form name="formBuscarInsumos" action="controladores/ControladorPrincipal.php" method="POST">
-                <input type="hidden" name="ruta" value="listarInsumos"/>
+            <form name="formBuscanCom" action="controladores/ControladorPrincipal.php" method="POST">
+                <input type="hidden" name="ruta" value="listaTérmOrdCom"/>
                 <input type="text" name="buscar" placeholder="Término a Buscar" value="<?php
                 if (isset($_SESSION['buscarF'])) {
                     echo $_SESSION['buscarF'];
                 }
                 ?>">
                 <input type="submit"  value="Buscar" title="Si es necesario limpie 'Filtrar'">&nbsp;&nbsp;||&nbsp;&nbsp;
-                <input type="button"  value="Limpiar Búsqueda" onclick="javascript:document.formBuscarInsumos.buscar.value = '';
-                        javascript:document.formBuscarInsumos.submit();">
+                <input type="button"  value="Limpiar Búsquedsubmitick="javascript:document.formBuscarInsOrdCom.buscar.value = '';
+               </javascript:document.formBuscarInsOrdCom.submit();">
             </form>
         </span>
     </div>        
@@ -237,12 +249,12 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <span class="izquierdo">
         <!--NUEVO BOTÓN PARA DARLE FUNCIONALIDAD*************************-->
 
-        <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsumos/vistaInsertarInsumos.php'" value="Nuevo Insumos">
+  InsOrdC    <input type="button" onclick="javascript:location.href = 'principal.php?contenido=vistas/vistasInsOrdCom/vistaInsertarInsOrdCom.php'" value="Nuevo InsOrdCom">
 
     </span>
 </div>
 <br>
-<a name="listaDeInsumos" id="a"></a>
+<a name="listaDwidth: eInsOrdCom" id="a"></a>
 <div style="width: 800">
     <p>Total de Registros: <?php echo $totalRegistros; ?></p>
     <table border=1>
@@ -253,23 +265,28 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                 <td style="width: 100">InsPrecio</td>
                 <td style="width: 100">InsEstado</td>
                 <td style="width: 100">InsUnidadMedida</td>
+                <td style="width: 100">Insumos_InsCodigo</td>
+                <td style="width: 100">Ordencompra_OrdComId</td>
                 
                 <td style="width: 100"  colspan="2"> ACCIONES </td>
             </tr>
         </thead> 
         <?php
         $i = 0;
-        foreach ($listaDeInsumos as $key => $value) {
+               foreach ($listaDeInsOrdCom as $key => $value) {
             ?>
             <tr>
-                <td style="width: 100"><?php echo $listaDeInsumos[$i]->InsCodigo; ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsNombre); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsPrecio); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsEstado); ?></td>;
-                <td style="width: 100"><?php echo strtoupper($listaDeInsumos[$i]->InsUnidadMedida); ?></td>;
+            <td style="width: 100"><?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsNombre); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsPrecio); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsEstado); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsUnidadMedida); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Insumos_InsCodigo); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Ordencompra_OrdComId); ?></td>;
+
                 
-                <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>" >Actualizar</a></td>
-                <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsumos&idAct=<?php echo $listaDeInsumos[$i]->InsCodigo; ?>">Eliminar</a>   </td>
+                     <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?>" >Actualizar</a></td>
+                <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?>">Eliminar</a>   </td>
                 <?php
                 $i++;
                 ?><tr><?php
