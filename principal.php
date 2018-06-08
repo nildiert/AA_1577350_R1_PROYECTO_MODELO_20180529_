@@ -125,7 +125,12 @@
                                 <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarProvIns.php">Agregar ProvIns</a></li>
                             </ul>
                         </li>                           
-
+                        <li><a href="#">Gestión de Proveedores</a>
+                        <ul>
+                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarProveedores">Listado de Proveedores</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarProveedores.php">Agregar Proveedores</a></li>
+                            </ul>
+                        </li>                           
          
                     </ul>
                     <!-- end menu -->
