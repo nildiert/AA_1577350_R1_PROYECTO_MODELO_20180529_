@@ -113,6 +113,18 @@
                                 <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarInsOrdCom.php">Agregar InsOrdCom</a></li>
                             </ul>
                         </li>
+                        <li><a href="#">Gestión de OrdenCompra</a>
+                        <ul>
+                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarOrdenCompra">Listado de OrdenCompra</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarOrdenCompra.php">Agregar OrdenCompra</a></li>
+                            </ul>
+                        </li>                        
+                        <li><a href="#">Gestión de ProvIns</a>
+                        <ul>
+                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarProvIns">Listado de ProvIns</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarProvIns.php">Agregar ProvIns</a></li>
+                            </ul>
+                        </li>                           
 
          
                     </ul>
