@@ -2,6 +2,7 @@
 //echo "<pre>";
 //print_r($_SESSION);
 //echo "</pre>";exit();
+//exit();
 session_start();
 if (isset($_SESSION['mensaje'])) {
     $mensaje = $_SESSION['mensaje'];
@@ -9,7 +10,7 @@ if (isset($_SESSION['mensaje'])) {
     unset($_SESSION['mensaje']);
 }
 if (isset($_SESSION['listaDeInsOrdCom'])) {
-$listaDeInsOrdCom = $_SESSION['listaDeInsOrdCom'];
+    $listaDeInsOrdCom = $_SESSION['listaDeInsOrdCom'];
 }
 if (isset($_SESSION['paginacionVinculos'])) {
     $paginacionVinculos = $_SESSION['paginacionVinculos'];
@@ -21,47 +22,42 @@ if (isset($_SESSION['totalRegistros'])) {
 //http://www.forosdelweb.com/f18/notice-session-had-already-been-started-ignoring-session_start-1021808/
 //http://ajpdsoft.com/modules.php?name=News&file=print&sid=486
 
-/* * ********Conservar filtro 'InsCodigo' si lo hay************ */
-if (isset($_POST['InsCodigo']))
-    $_SESSION['InsCodigoF'] = $_POST['InsCodigo'];
-if (isset($_SESSION['InsCodigoF']) && !isset($_POST['InsCodigo']))
-    $_POST['InsCodigo'] = $_SESSION['InsCodigoF'];
+
+
+
+
+
+
+
+/* * ********Conservar filtro 'Insumos_InsCodigo' si lo hay************ */
+if (isset($_POST['Insumos_InsCodigo']))
+    $_SESSION['Insumos_InsCodigoF'] = $_POST['Insumos_InsCodigo'];
+if (isset($_SESSION['Insumos_InsCodigoF']) && !isset($_POST['Insumos_InsCodigo']))
+    $_POST['Insumos_InsCodigo'] = $_SESSION['Insumos_InsCodigoF'];
+/* * ********************************************* */
+/* * ********Conservar filtro 'Ordencompra_OrdComId' si lo hay************ */
+if (isset($_POST['Ordencompra_OrdComId']))
+    $_SESSION['perDocumentoF'] = $_POST['Ordencompra_OrdComId'];
+if (isset($_SESSION['Ordencompra_OrdComIdF']) && !isset($_POST['Ordencompra_OrdComId']))
+    $_POST['Ordencompra_OrdComId'] = $_SESSION['Ordencompra_OrdComIdF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsNombre' si lo hay************ */
 if (isset($_POST['InsNombre']))
-    $_SESSION['perDocumentoF'] = $_POST['InsNombre'];
+    $_SESSION['InsNombreF'] = $_POST['InsNombre'];
 if (isset($_SESSION['InsNombreF']) && !isset($_POST['InsNombre']))
     $_POST['InsNombre'] = $_SESSION['InsNombreF'];
 /* * ********************************************* */
-/* * ********Conservar filtro 'InsInsPrecio' si lo hay************ */
-if (isset($_POST['InsInsPrecio']))
-    $_SESSION['InsInsPrecioF'] = $_POST['InsInsPrecio'];
-if (isset($_SESSION['InsInsPrecioF']) && !isset($_POST['InsInsPrecio']))
-    $_POST['InsInsPrecio'] = $_SESSION['InsInsPrecioF'];
-/* * ********************************************* */
-/* * ********Conservar filtro 'InsPrecio' si lo hay************ */
-if (isset($_POST['InsEstado']))
-    $_SESSION['InsEstadoF'] = $_POST['InsEstado'];
-if (isset($_SESSION['InsEstadoF']) && !isset($_POST['InsEstado']))
-    $_POST['InsEstado'] = $_SESSION['InsEstadoF'];
-/* * ********************************************* */
-/* * ********Conservar filtro 'InsPrecio' si lo hay************ */
+/* * ********Conservar filtro 'InsUnidadMedida' si lo hay************ */
 if (isset($_POST['InsUnidadMedida']))
     $_SESSION['InsUnidadMedidaF'] = $_POST['InsUnidadMedida'];
 if (isset($_SESSION['InsUnidadMedidaF']) && !isset($_POST['InsUnidadMedida']))
     $_POST['InsUnidadMedida'] = $_SESSION['InsUnidadMedidaF'];
 /* * ********************************************* */
 /* * ********Conservar filtro 'InsPrecio' si lo hay************ */
-if (isset($_POST['Insumos_InsCodigo']))
-    $_SESSION['Insumos_InsCodigoF'] = $_POST['Insumos_InsCodigo'];
-if (isset($_SESSION['Insumos_InsCodigoF']) && !isset($_POST['Insumos_InsCodigo']))
-    $_POST['Insumos_InsCodigo'] = $_SESSION['Insumos_InsCodigoF'];
-/* * ********************************************* */
-/* * ********Conservar filtro 'InsPrecio' si lo hay************ */
-if (isset($_POST['Ordencompra_OrdComId ']))
-    $_SESSION['Ordencompra_OrdComId F'] = $_POST['Ordencompra_OrdComId '];
-if (isset($_SESSION['Ordencompra_OrdComId F']) && !isset($_POST['Ordencompra_OrdComId ']))
-    $_POST['Ordencompra_OrdComId '] = $_SESSION['Ordencompra_OrdComId F'];
+if (isset($_POST['InsPrecio']))
+    $_SESSION['InsPrecioF'] = $_POST['InsPrecio'];
+if (isset($_SESSION['InsPrecioF']) && !isset($_POST['InsPrecio']))
+    $_POST['InsPrecio'] = $_SESSION['InsPrecioF'];
 /* * ********************************************* */
 
 /* * ********Conservar filtro 'buscar' si lo hay************ */
@@ -106,7 +102,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <div class="row">
         <div class="col-lg-12">
             <h1 class="page-header">Gestión de InsOrdCom.</h1>
-        </div>      
+        </div>                        
         <!-- /.col-lg-12 -->    
     </div>
     <!-- /.row -->
@@ -115,26 +111,42 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
 <div>
     <fieldset class="scheduler-border"><legend class="scheduler-border">FILTRO</legend>
 
-        <form name="formFiltrnCom" action="controladores/ControladorPrincipal.php" method="POST">
-        <input type="hidden" name="ruta" value="listarInsOrdCom"/>
+        <form name="formFiltroInsOrdCom" action="controladores/ControladorPrincipal.php" method="POST">
+            <input type="hidden" name="ruta" value="listarInsOrdCom"/>
             <table> 
-                <tr><td>InsCodigo:</td><td><input type="number" name="InsCodigo" onclick="" value="<?php
-                        if (isset($registroAInsertar['InsCodigo'])) {
-                            echo $registroAInsertar['InsCodigo'];
+                <tr><td>Insumos_InsCodigo:</td><td><input type="number" name="Insumos_InsCodigo" onclick="" value="<?php
+                        if (isset($registroAInsertar['Insumos_InsCodigo'])) {
+                            echo $registroAInsertar['Insumos_InsCodigo'];
                         }
-                        if (isset($_SESSION['InsCodigoF'])) {
-                            echo $_SESSION['InsCodigoF'];
+                        if (isset($_SESSION['Insumos_InsCodigoF'])) {
+                            echo $_SESSION['Insumos_InsCodigoF'];
                         }
                         ?>"/></td>
                     <td>
                         <?php
-                        if (isset($marcaCampo['InsCodigo'])) {
-                            echo $marcaCampo['InsCodigo'];
+                        if (isset($marcaCampo['Insumos_InsCodigo'])) {
+                            echo $marcaCampo['Insumos_InsCodigo'];
                         }
                         ?>
                     </td>                        
                 </tr> 
-                <tr><td>InsNombre:</td><td> <input type="text" name="InsNombre" onclick="" value="<?php
+                <tr><td>Ordencompra_OrdComId:</td><td> <input type="text" name="Ordencompra_OrdComId" onclick="" value="<?php
+                        if (isset($registroAInsertar['Ordencompra_OrdComId'])) {
+                            echo $registroAInsertar['Ordencompra_OrdComId'];
+                        }
+                        if (isset($_SESSION['Ordencompra_OrdComIdF'])) {
+                            echo $_SESSION['Ordencompra_OrdComIdF'];
+                        }
+                        ?>" /></td>
+                    <td>
+                        <?php
+                        if (isset($marcaCampo['Ordencompra_OrdComId'])) {
+                            echo $marcaCampo['Ordencompra_OrdComId'];
+                        }
+                        ?>
+                    </td>                          
+                </tr> 
+                <tr><td>InsNombre: </td><td><input type="number" onclick=""  name="InsNombre" value="<?php
                         if (isset($registroAInsertar['InsNombre'])) {
                             echo $registroAInsertar['InsNombre'];
                         }
@@ -149,39 +161,7 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         }
                         ?>
                     </td>                          
-                </tr> 
-                <tr><td>InsPrecio: </td><td><input type="number" onclick=""  name="InsPrecio" value="<?php
-                        if (isset($registroAInsertar['InsPrecio'])) {
-                            echo $registroAInsertar['InsPrecio'];
-                        }
-                        if (isset($_SESSION['InsPrecioF'])) {
-                            echo $_SESSION['InsPrecioF'];
-                        }
-                        ?>" /></td>
-                    <td>
-                        <?php
-                        if (isset($marcaCampo['InsPrecio'])) {
-                            echo $marcaCampo['InsPrecio'];
-                        }
-                        ?>
-                    </td>                          
                 </tr>                   
-                <tr><td>InsEstado:</td><td> <input type="text" onclick="" name="InsEstado" value="<?php
-                        if (isset($registroAInsertar['InsEstado'])) {
-                            echo $registroAInsertar['InsEstado'];
-                        }
-                        if (isset($_SESSION['InsEstadoF'])) {
-                            echo $_SESSION['InsEstadoF'];
-                        }
-                        ?>"/></td>
-                    <td>
-                        <?php
-                        if (isset($marcaCampo['InsEstado'])) {
-                            echo $marcaCampo['InsEstado'];
-                        }
-                        ?>
-                    </td>                          
-                </tr> 
                 <tr><td>InsUnidadMedida:</td><td> <input type="text" onclick="" name="InsUnidadMedida" value="<?php
                         if (isset($registroAInsertar['InsUnidadMedida'])) {
                             echo $registroAInsertar['InsUnidadMedida'];
@@ -194,6 +174,22 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                         <?php
                         if (isset($marcaCampo['InsUnidadMedida'])) {
                             echo $marcaCampo['InsUnidadMedida'];
+                        }
+                        ?>
+                    </td>                          
+                </tr> 
+                <tr><td>InsPrecio:</td><td> <input type="text" onclick="" name="InsPrecio" value="<?php
+                        if (isset($registroAInsertar['InsPrecio'])) {
+                            echo $registroAInsertar['InsPrecio'];
+                        }
+                        if (isset($_SESSION['InsPrecioF'])) {
+                            echo $_SESSION['InsPrecioF'];
+                        }
+                        ?>"/></td>
+                    <td>
+                        <?php
+                        if (isset($marcaCampo['InsPrecio'])) {
+                            echo $marcaCampo['InsPrecio'];
                         }
                         ?>
                     </td>                          
@@ -211,15 +207,14 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
                     echo "</td>\n";
                     echo "</tr>\n";
                 }
-                //
-                ?>                    
+                ?>       
                 <tr><td><input type="submit" value="Filtrar" name="enviar" title="Si es necesario limpie 'Buscar'"/></td>
                     <td><input type="reset" value="limpiar" onclick="
-                            javascript:document.formFiltroInsOrdCom.InsCodigo.value = '';
+                            javascript:document.formFiltroInsOrdCom.Insumos_InsCodigo.value = '';
+                            javascript:document.formFiltroInsOrdCom.Ordencompra_OrdComId.value = '';
                             javascript:document.formFiltroInsOrdCom.InsNombre.value = '';
-                            javascript:document.formFiltroInsOrdCom.InsPrecio.value = '';
-                            javascript:document.formFiltroInsOrdCom.InsEstado.value = '';
                             javascript:document.formFiltroInsOrdCom.InsUnidadMedida.value = '';
+                            javascript:document.formFiltroInsOrdCom.InsPrecio.value = '';
                             javascript:document.formFiltroInsOrdCom.submit();
                                "/></td><td></td></tr> 
             </table>
@@ -261,33 +256,28 @@ if (isset($_SESSION['buscarF']) && !isset($_POST['buscar']))
     <table border=1>
         <thead>
             <tr>
-                <td style="width: 100">InsCodigo</td>
-                <td style="width: 100">InsNombre</td>
-                <td style="width: 100">InsPrecio</td>
-                <td style="width: 100">InsEstado</td>
-                <td style="width: 100">InsUnidadMedida</td>
                 <td style="width: 100">Insumos_InsCodigo</td>
                 <td style="width: 100">Ordencompra_OrdComId</td>
+                <td style="width: 100">InsNombre</td>
+                <td style="width: 100">InsUnidadMedida</td>
+                <td style="width: 100">InsPrecio</td>
                 
                 <td style="width: 100"  colspan="2"> ACCIONES </td>
             </tr>
         </thead> 
         <?php
         $i = 0;
-               foreach ($listaDeInsOrdCom as $key => $value) {
+        foreach ($listaDeInsOrdCom as $key => $value) {
             ?>
             <tr>
-            <td style="width: 100"><?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsNombre); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsPrecio); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsEstado); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsUnidadMedida); ?></td>
-                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Insumos_InsCodigo); ?></td>
+                <td style="width: 100"><?php echo $listaDeInsOrdCom[$i]->Insumos_InsCodigo; ?></td>
                 <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->Ordencompra_OrdComId); ?></td>
-
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsNombre); ?></td>
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsUnidadMedida); ?></td>;
+                <td style="width: 100"><?php echo strtoupper($listaDeInsOrdCom[$i]->InsPrecio); ?></td>;
                 
-                     <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?>" >Actualizar</a></td>
-                <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->InsCodigo; ?>">Eliminar</a>   </td>
+                <td style="width: 100"><a href="controladores/ControladorPrincipal.php?ruta=actualizarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->Insumos_InsCodigo; ?>" >Actualizar</a></td>
+                <td style="width: 100">  <a href="controladores/ControladorPrincipal.php?ruta=eliminarInsOrdCom&idAct=<?php echo $listaDeInsOrdCom[$i]->Insumos_InsCodigo; ?>">Eliminar</a>   </td>
                 <?php
                 $i++;
                 ?><tr><?php

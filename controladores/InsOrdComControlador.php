@@ -6,7 +6,6 @@ require_once PATH . 'modelos/modeloInsOrdCom/InsOrdComDAO.php';
 require_once PATH . 'modelos/modeloInsOrdCom/InsOrdComVO.php';
 
 
-
 class InsOrdComControlador {
 
     private $datos = array();
@@ -44,8 +43,7 @@ class InsOrdComControlador {
 
                 $usuarioBd = null;
                 $gestarInsOrdCom = null;
-                header("location: ../principal.php?contenido=vistas/vistasInsOrdCom/listarRegistrosInsOrdCom.php");
-                break;
+                header("location: ../principal.php?contenido=vistas/vistasInsOrdCom/listarRegistrosInsOrdCom.php");                break;
 
             default:
                 break;

@@ -1,7 +1,6 @@
 <?php
 include_once '../modelos/ConstantesConexion.php';
 include_once PATH . 'modelos/ConBdMySql.php';
-
 include_once PATH . 'modelos/UsuarioBD.php';
 // include_once PATH . 'modelos/modeloPersona/PersonaVO.php';
 include_once PATH . 'modelos/InterfaceCRUD.php';
@@ -16,12 +15,8 @@ class InsOrdComDAO extends ConBdMySql /* implements InterfaceCRUD */ {
 
 public function seleccionarTodos() {
 
-	$planConsulta = "SELECT oc.OrdComId,oc.OrdComFecha,  i.InsNombre, i.InsPrecio, i.InsCodigo ";
-	$planConsulta .= "FROM ((ordencompra oc left join insordcom ic on oc.OrdComId=ic.Insumos_InsCodigo)  ";
-	$planConsulta .= "left join insumos i on i.InsCodigo=ic.Insumos_InsCodigo) ";
-
-
-
+	$planConsulta="SELECT ic.Insumos_InsCodigo,ic.Ordencompra_OrdComId, i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+	$planConsulta.="FROM (insordcom ic left join insumos i on i.InsCodigo=ic.Insumos_InsCodigo)";
 
 
 	$registrosInsOrdCom = $this->conexion->prepare($planConsulta); //Se envia la consulta
@@ -47,67 +42,57 @@ public function seleccionarTodos() {
     	if (isset($_POST['buscar']))
         	$_POST['buscar'] = trim($_POST['buscar']);
 
-
-			$planConsulta = "SELECT oc.OrdComId,oc.OrdComFecha,  i.InsNombre, i.InsPrecio, i.InsCodigo ";
-			$planConsulta .= "FROM ((ordencompra oc left join insordcom ic on oc.OrdComId=ic.Insumos_InsCodigo)  ";
-			$planConsulta .= "left join insumos i on i.InsCodigo=ic.Insumos_InsCodigo) ";
+			$planConsulta="SELECT ic.Insumos_InsCodigo,ic.Ordencompra_OrdComId, i.InsNombre,i.InsUnidadMedida,i.InsPrecio ";
+			$planConsulta.="FROM (insordcom ic left join insumos i on i.InsCodigo=ic.Insumos_InsCodigo)";
 			
 
-			
-			
-			if (!empty($_POST['OrdComId'])) {
-				$planConsulta.=" where i.OrdComId='" . $_POST['OrdComId'] . "'";
+		
+		
+			if (!empty($_POST['Insumos_InsCodigo'])) {
+				$planConsulta.=" where ic.Insumos_InsCodigo='" . $_POST['Insumos_InsCodigo'] . "'";
 				$filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta   	
 			} else {
 				$where = false; // inicializar $where a falso ( al comenzar la consulta NO HAY condiciones o criterios de búsqueda)
-        	$filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
-        	if (!empty($_POST['OrdComFecha'])) {
-            	$where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . "oc.OrdComFecha like upper('%" . $_POST['InsNombre'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
-            	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-        	}        	
-        	if (!empty($_POST['InsNombre'])) {
-            	$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+				$filtros = 0;  // cantidad de filtros/condiciones o criterios de búsqueda al comenzar la consulta
+				if (!empty($_POST['Ordencompra_OrdComId'])) {
+					$where = true; // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+					$planConsulta.=(($where && !$filtros) ? " where " : " and ") . "ic.Ordencompra_OrdComId like upper('%" . $_POST['Ordencompra_OrdComId'] . "%')"; // con tipo de búsqueda aproximada sin importar mayúsculas ni minúsculas
+					$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
+				}        	
+		
+				if (!empty($_POST['InsNombre'])) {
+					$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
             	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsNombre = " . $_POST['InsNombre'];
             	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
 			}
-			if (!empty($_POST['InsPrecio'])) {
+			if (!empty($_POST['InsUnidadMedida'])) {
 				$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-				$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsPrecio = " . $_POST['InsPrecio'];
+				$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsUnidadMedida = " . $_POST['InsUnidadMedida'];
 				$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
 			}
-        	if (!empty($_POST['InsCodigo'])) {
-				$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsCodigo = " . $_POST['InsCodigo'];
+        	if (!empty($_POST['InsPrecio'])) {
+            	$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
+            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " i.InsPrecio = " . $_POST['InsPrecio'];
             	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
 			}			
-        	if (!empty($_POST['Insumos_InsCodigo'])) {
-				$where = true;  // inicializar $where a verdadero ( hay condiciones o criterios de búsqueda)
-            	$planConsulta.=(($where && !$filtros) ? " where " : " and ") . " ic.Insumos_InsCodigo = " . $_POST['Insumos_InsCodigo'];
-            	$filtros++; //cantidad de filtros/condiciones o criterios de búsqueda
-			}						
-        	
+
    
 		}
-		
-		
-		
-    	if (!empty($_POST['buscar'])) {
-			$where = TRUE;
+		if (!empty($_POST['buscar'])) {
+        	$where = TRUE;
         	$condicionBuscar = (($where && !$filtros == 0) ? " or " : " where ");
         	$filtros++;
         	$planConsulta.=$condicionBuscar;
-        	$planConsulta.="( OrdComId like '%" . $_POST['buscar'] . "%'";
-        	$planConsulta.=" or OrdComFecha like '%" . $_POST['buscar'] . "%'";
+        	$planConsulta.="( Insumos_InsCodigo like '%" . $_POST['buscar'] . "%'";
+        	$planConsulta.=" or Ordencompra_OrdComId like '%" . $_POST['buscar'] . "%'";
 			$planConsulta.=" or InsNombre like '%" . $_POST['buscar'] . "%'";
+			$planConsulta.=" or InsUnidadMedida like '%" . $_POST['buscar'] . "%'";
 			$planConsulta.=" or InsPrecio like '%" . $_POST['buscar'] . "%'";
-			$planConsulta.=" or InsCodigo like '%" . $_POST['buscar'] . "%'";
-			
         	
         	$planConsulta.=" ) ";
     	};
 		
-    	$planConsulta.= "  order by OrdComId ASC";
+    	$planConsulta.= "  order by Insumos_InsCodigo ASC";
     	$planConsulta.=" LIMIT " . $limit . " OFFSET " . $offset . " ; ";
     	$listar = $this->conexion->prepare($planConsulta);
     	$listar->execute();
