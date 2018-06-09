@@ -10,6 +10,7 @@ include_once PATH . 'controladores/InsOrdComControlador.php';
 include_once PATH . 'controladores/OrdenCompraControlador.php';
 include_once PATH . 'controladores/ProvInsControlador.php';
 include_once PATH . 'controladores/ProveedoresControlador.php';
+include_once PATH . 'controladores/ProInsControlador.php';
 
 /* * ********************************************** */
 
@@ -53,5 +54,9 @@ switch ($datos['ruta']) {
         $ProveedoresControlador = new ProveedoresControlador($datos);
         $ProveedoresControlador->ProveedoresControlador();
         break;    
+    case "listarProIns":
+        $ProInsControlador = new ProInsControlador($datos);
+        $ProInsControlador->ProInsControlador();
+        break;            
 }
 ?>

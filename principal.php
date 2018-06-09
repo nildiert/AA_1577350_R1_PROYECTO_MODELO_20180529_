@@ -130,7 +130,13 @@
                             <li><a href="controladores/ControladorPrincipal.php?ruta=listarProveedores">Listado de Proveedores</a></li>
                                 <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarProveedores.php">Agregar Proveedores</a></li>
                             </ul>
-                        </li>                           
+                        </li>      
+                        <li><a href="#">Gestión de ProIns</a>
+                        <ul>
+                            <li><a href="controladores/ControladorPrincipal.php?ruta=listarProIns">Listado de ProIns</a></li>
+                                <li><a href="principal.php?contenido=vistas/vistasUsuario_s/vistaInsertarProIns.php">Agregar ProIns</a></li>
+                            </ul>
+                        </li>                                                 
          
                     </ul>
                     <!-- end menu -->
